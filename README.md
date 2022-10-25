@@ -13,6 +13,11 @@ docker build -t markrobinsonuzh/sta426:latest .
 docker push markrobinsonuzh/sta426:latest
 ```
 
+# Install docker
+
+One needs to install Docker; instructions are available for [Mac](https://docs.docker.com/desktop/install/mac-install/), [Linux](https://docs.docker.com/desktop/install/linux-install/) and [Windows](https://docs.docker.com/desktop/install/windows-install/).  
+
+
 # Most important commands
 
 ```
@@ -26,7 +31,8 @@ docker run --it markrobinsonuzh/sta426:latest /bin/bash
 docker image ls
 
 # run container with Rstudio; goto http://localhost:8886/ in browser
-docker run -v /home/Shared/ece:/home/rstudio/work --restart unless-stopped --cpus 2 --memory 16GB -e PASSWORD=ZJ#m2X -p 8886:8787 markrobinsonuzh/sta426:latest
+docker run -v /home/Shared/ece:/home/rstudio/work --restart unless-stopped \
+       --cpus 2 --memory 16GB -e PASSWORD=ZJ#m2X -p 8886:8787 markrobinsonuzh/sta426:latest
 
 # list running containers (same as `docker ps` ?)
 docker container ls
