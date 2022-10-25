@@ -31,7 +31,8 @@ docker run --it markrobinsonuzh/sta426:latest /bin/bash
 docker image ls
 
 # run container with Rstudio; goto http://localhost:8886/ in browser
-docker run -v /home/Shared/ece:/home/rstudio/work --restart unless-stopped \
+# note the mapping of a local dir to that within container
+docker run -v /Users/mark/projects/sta426_scratch:/home/rstudio/work --restart unless-stopped \
        --cpus 2 --memory 16GB -e PASSWORD=abc -p 8886:8787 markrobinsonuzh/sta426:latest
 
 # list running containers (same as `docker ps` ?)
