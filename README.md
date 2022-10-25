@@ -47,6 +47,7 @@ docker exec -it <container name> /bin/bash
 Goto [http://localhost:8886/](http://localhost:8886/) and type in username/password; RStudio Server should open. Go to Terminal and type:
 
 ```
+cd /home/rstudio/work
 git clone https://github.com/csoneson/ARMOR.git
 cd ARMOR
 snakemake --cores 1
