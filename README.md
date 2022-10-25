@@ -1,6 +1,5 @@
 # docker-for-sta426
-This repo contains the `Dockerfile` recipe for building images that can run ARMOR.
-
+This repo contains the `Dockerfile` recipe for building images that can run [ARMOR](https://github.com/csoneson/ARMOR).
 
 # To build the image (just FYI; students don't need to do this)
 
