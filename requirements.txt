@@ -1,1 +1,2 @@
 pandas
+cutadapt==3.2
