@@ -25,7 +25,7 @@ One needs to install Docker; instructions are available for [Mac](https://docs.d
 docker pull markrobinsonuzh/sta426:latest
 
 # start bash shell for testing from command line
-docker run --it markrobinsonuzh/sta426:latest /bin/bash
+docker run -it markrobinsonuzh/sta426:latest /bin/bash
 
 # list local images
 docker image ls
