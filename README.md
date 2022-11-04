@@ -44,7 +44,7 @@ docker exec -it <container name> /bin/bash
 
 # Test that `ARMOR` is working
 
-Goto [http://localhost:8886/](http://localhost:8886/) and type in username/password; RStudio Server should open. Go to Terminal and type:
+Goto [http://localhost:8886/](http://localhost:8886/) and type in username (`rstudio`) and password (as defined in the command above); RStudio Server should open. Go to Terminal and type:
 
 ```
 cd /home/rstudio/work
