@@ -53,3 +53,20 @@ cd ARMOR
 snakemake --cores 1
 ```
 
+# Some modifications to make ..
+
+After cloning the `ARMOR` repository, we are not using the `snakemake --use-conda` part. Instead we need to make the following modificaitons to the `config.yaml`:
+
+```
+useCondaR: False
+Rbin: /usr/local/bin/R
+```
+
+.. and in the `.Renviron` file, you'll need to set:
+
+```
+R_LIBS_USER="/usr/local/lib/R/site-library"
+```
+
+
+
