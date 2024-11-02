@@ -1,0 +1,1 @@
+docker build . -t sta426hs2024:latest

@@ -1,6 +1,6 @@
 # see https://github.com/SwissDataScienceCenter/renkulab-docker
 # to swap this image for the latest version available
-FROM bioconductor/bioconductor_docker:RELEASE_3_15
+FROM bioconductor/bioconductor_docker:RELEASE_3_19
 
 # Uncomment and adapt if code is to be included in the image
 # COPY src /code/src
@@ -20,22 +20,30 @@ RUN apt-get update && \
     texlive-fonts-recommended \
     libncurses-dev \
     default-jre \
-    bedtools
+    bedtools \
+    libc6-amd64-cross
 
+#RUN ln -s /usr/x86_64-linux-gnu/lib64 /lib64
+#ENV LD_LIBRARY_PATH="/usr/lib/aarch64-linux-gnu/libdl.so.2/:/lib64/:/usr/x86_64-linux-gnu/lib/:/usr/x86_64-linux-gnu/lib/"
 
 # install conda
 ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
 
 RUN wget \
+    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh \
     https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && mkdir /root/.conda \
-    && bash Miniconda3-latest-Linux-x86_64.sh -b \
-    && rm -f Miniconda3-latest-Linux-x86_64.sh 
+    && bash Miniconda3-latest-Linux-aarch64.sh -b \
+    && rm -f Miniconda3-latest-Linux-aarch64.sh 
+#    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+#    && mkdir /root/.conda \
+#    && bash Miniconda3-latest-Linux-x86_64.sh -b \
+#    && rm -f Miniconda3-latest-Linux-x86_64.sh 
 RUN conda --version
 
 # downgrade python
-RUN conda install python=3.7.0
+RUN conda install python=3.9
 RUN conda install -c bioconda -c conda-forge snakemake-minimal
 
 RUN mkdir -p /root
@@ -46,7 +54,7 @@ RUN tar xvfj /tmp/samtools-1.11.tar.bz2 --directory=/tmp && /bin/rm /tmp/samtool
 WORKDIR "/tmp/samtools-1.11"
 RUN ./configure --prefix=/usr && make && make install && /bin/rm -r /tmp/samtools-1.11
 
-RUN wget -O /tmp/bowtie2-2.4.5-linux-x86_64.zip https://jztkft.dl.sourceforge.net/project/bowtie-bio/bowtie2/2.4.5/bowtie2-2.4.5-linux-x86_64.zip
+RUN wget -O /tmp/bowtie2-2.4.5-linux-x86_64.zip https://master.dl.sourceforge.net/project/bowtie-bio/bowtie2/2.4.5/bowtie2-2.4.5-linux-x86_64.zip
 RUN unzip /tmp/bowtie2-2.4.5-linux-x86_64.zip -d /root && /bin/rm /tmp/bowtie2-2.4.5-linux-x86_64.zip
 ENV PATH="/root/bowtie2-2.4.5-linux-x86_64/:${PATH}"
 ARG PATH="/root/bowtie2-2.4.5-linux-x86_64/:${PATH}"
