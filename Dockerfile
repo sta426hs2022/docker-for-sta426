@@ -86,6 +86,7 @@ ARG PATH="/root/TrimGalore-0.6.6/:${PATH}"
 #RUN wget -O /tmp/v1.4.0.tar.gz https://github.com/COMBINE-lab/salmon/archive/refs/tags/v1.4.0.tar.gz
 #RUN cd /tmp && tar xvf v1.4.0.tar.gz && cd salmon-1.4.0 && mkdir build && cd build && cmake .. && make
 RUN wget -O /tmp/salmon-1.4.0_linux_x86_64.tar.gz https://github.com/COMBINE-lab/salmon/releases/download/v1.4.0/salmon-1.4.0_linux_x86_64.tar.gz
+RUN tar xvf /tmp/salmon-1.4.0_linux_x86_64.tar.gz --directory=/root && /bin/rm /tmp/salmon-1.4.0_linux_x86_64.tar.gz
 ENV PATH="/root/salmon-latest_linux_x86_64/bin/:${PATH}"
 ARG PATH="/root/salmon-latest_linux_x86_64/bin/:${PATH}"
 
