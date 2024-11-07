@@ -21,10 +21,8 @@ RUN apt-get update && \
     libncurses-dev \
     default-jre \
     bedtools \
-    libc6-amd64-cross
-
-#RUN ln -s /usr/x86_64-linux-gnu/lib64 /lib64
-#ENV LD_LIBRARY_PATH="/usr/lib/aarch64-linux-gnu/libdl.so.2/:/lib64/:/usr/x86_64-linux-gnu/lib/:/usr/x86_64-linux-gnu/lib/"
+    libc6-amd64-cross \
+    libboost-all-dev
 
 # install conda
 ENV PATH="/root/miniconda3/bin:${PATH}"
@@ -32,7 +30,6 @@ ARG PATH="/root/miniconda3/bin:${PATH}"
 
 RUN wget \
     https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh \
-    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && mkdir /root/.conda \
     && bash Miniconda3-latest-Linux-aarch64.sh -b \
     && rm -f Miniconda3-latest-Linux-aarch64.sh 
@@ -54,10 +51,10 @@ RUN tar xvfj /tmp/samtools-1.11.tar.bz2 --directory=/tmp && /bin/rm /tmp/samtool
 WORKDIR "/tmp/samtools-1.11"
 RUN ./configure --prefix=/usr && make && make install && /bin/rm -r /tmp/samtools-1.11
 
-RUN wget -O /tmp/bowtie2-2.4.5-linux-x86_64.zip https://master.dl.sourceforge.net/project/bowtie-bio/bowtie2/2.4.5/bowtie2-2.4.5-linux-x86_64.zip
-RUN unzip /tmp/bowtie2-2.4.5-linux-x86_64.zip -d /root && /bin/rm /tmp/bowtie2-2.4.5-linux-x86_64.zip
-ENV PATH="/root/bowtie2-2.4.5-linux-x86_64/:${PATH}"
-ARG PATH="/root/bowtie2-2.4.5-linux-x86_64/:${PATH}"
+#RUN wget -O /tmp/bowtie2-2.4.5-linux-x86_64.zip https://master.dl.sourceforge.net/project/bowtie-bio/bowtie2/2.4.5/bowtie2-2.4.5-linux-x86_64.zip
+#RUN unzip /tmp/bowtie2-2.4.5-linux-x86_64.zip -d /root && /bin/rm /tmp/bowtie2-2.4.5-linux-x86_64.zip
+#ENV PATH="/root/bowtie2-2.4.5-linux-x86_64/:${PATH}"
+#ARG PATH="/root/bowtie2-2.4.5-linux-x86_64/:${PATH}"
 
 RUN wget -O /tmp/2.7.7a.tar.gz https://github.com/alexdobin/STAR/archive/2.7.7a.tar.gz
 RUN tar -xzf /tmp/2.7.7a.tar.gz --directory=/root
@@ -66,11 +63,11 @@ RUN make STAR
 ENV PATH="/root/STAR-2.7.7a/source:${PATH}"
 ARG PATH="/root/STAR-2.7.7a/source:${PATH}"
 
-RUN wget -O /tmp/minimap2-2.24_x64-linux.tar.bz2 https://github.com/lh3/minimap2/releases/download/v2.24/minimap2-2.24_x64-linux.tar.bz2
-WORKDIR "/tmp"
-RUN tar -jxvf /tmp/minimap2-2.24_x64-linux.tar.bz2 --directory=/root
-ENV PATH="/root/minimap2-2.24_x64-linux/:${PATH}"
-ARG PATH="/root/minimap2-2.24_x64-linux/:${PATH}"
+#RUN wget -O /tmp/minimap2-2.24_x64-linux.tar.bz2 https://github.com/lh3/minimap2/releases/download/v2.24/minimap2-2.24_x64-linux.tar.bz2
+#WORKDIR "/tmp"
+#RUN tar -jxvf /tmp/minimap2-2.24_x64-linux.tar.bz2 --directory=/root
+#ENV PATH="/root/minimap2-2.24_x64-linux/:${PATH}"
+#ARG PATH="/root/minimap2-2.24_x64-linux/:${PATH}"
 
 RUN wget -O /tmp/fastqc_v0.11.9.zip https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip
 RUN unzip -d /root /tmp/fastqc_v0.11.9.zip
@@ -83,23 +80,25 @@ RUN tar xvzf /tmp/trim_galore.tar.gz --directory=/root
 ENV PATH="/root/TrimGalore-0.6.6/:${PATH}"
 ARG PATH="/root/TrimGalore-0.6.6/:${PATH}"
 
-RUN wget -O /tmp/hisat2-2.2.1-Linux_x86_64.zip https://cloud.biohpc.swmed.edu/index.php/s/oTtGWbWjaxsQ2Ho/download
-RUN unzip /tmp/hisat2-2.2.1-Linux_x86_64.zip -d /root
-ENV PATH="/root/hisat2-2.2.1/:${PATH}"
-ARG PATH="/root/hisat2-2.2.1/:${PATH}"
+#RUN wget -O /tmp/hisat2-2.2.1-Linux_x86_64.zip https://cloud.biohpc.swmed.edu/index.php/s/oTtGWbWjaxsQ2Ho/download
+#RUN unzip /tmp/hisat2-2.2.1-Linux_x86_64.zip -d /root
+#ENV PATH="/root/hisat2-2.2.1/:${PATH}"
+#ARG PATH="/root/hisat2-2.2.1/:${PATH}"
 
-RUN wget -O /tmp/salmon-1.4.0_linux_x86_64.tar.gz https://github.com/COMBINE-lab/salmon/releases/download/v1.4.0/salmon-1.4.0_linux_x86_64.tar.gz
-RUN tar xvf /tmp/salmon-1.4.0_linux_x86_64.tar.gz --directory=/root && /bin/rm /tmp/salmon-1.4.0_linux_x86_64.tar.gz
-ENV PATH="/root/salmon-latest_linux_x86_64/bin/:${PATH}"
-ARG PATH="/root/salmon-latest_linux_x86_64/bin/:${PATH}"
+#RUN wget -O /tmp/salmon-1.4.0_linux_x86_64.tar.gz https://github.com/COMBINE-lab/salmon/releases/download/v1.4.0/salmon-1.4.0_linux_x86_64.tar.gz
+RUN wget -O /tmp/v1.4.0.tar.gz https://github.com/COMBINE-lab/salmon/archive/refs/tags/v1.4.0.tar.gz
+#RUN cd /tmp && tar xvf v1.4.0.tar.gz && cd salmon-1.4.0 && mkdir build && cd build && cmake .. && make
+#ENV PATH="/root/salmon-latest_linux_x86_64/bin/:${PATH}"
+#ARG PATH="/root/salmon-latest_linux_x86_64/bin/:${PATH}"
 
-RUN curl http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig > /usr/bin/bedGraphToBigWig && chmod +x /usr/bin/bedGraphToBigWig
+#RUN conda install bioconda::ucsc-bedgraphtobigwig
+#RUN curl http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig > /usr/bin/bedGraphToBigWig && chmod +x /usr/bin/bedGraphToBigWig
 
-RUN echo 'pth <- Sys.getenv("PATH"); Sys.setenv(PATH = paste(pth, "/root/miniconda3/bin", sep = ":"))' >> /usr/local/lib/R/etc/Rprofile.site
+#RUN echo 'pth <- Sys.getenv("PATH"); Sys.setenv(PATH = paste(pth, "/root/miniconda3/bin", sep = ":"))' >> /usr/local/lib/R/etc/Rprofile.site
 
 # install the R dependencies
-COPY install.R /tmp/
-RUN R -f /tmp/install.R
+#COPY install.R /tmp/
+#RUN R -f /tmp/install.R
 
 # install the python dependencies
 COPY requirements.txt /tmp/
