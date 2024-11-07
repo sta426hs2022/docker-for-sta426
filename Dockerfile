@@ -29,14 +29,14 @@ ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
 
 RUN wget \
-    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh \
-    && mkdir /root/.conda \
-    && bash Miniconda3-latest-Linux-aarch64.sh -b \
-    && rm -f Miniconda3-latest-Linux-aarch64.sh 
-#    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+#    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh \
 #    && mkdir /root/.conda \
-#    && bash Miniconda3-latest-Linux-x86_64.sh -b \
-#    && rm -f Miniconda3-latest-Linux-x86_64.sh 
+#    && bash Miniconda3-latest-Linux-aarch64.sh -b \
+#    && rm -f Miniconda3-latest-Linux-aarch64.sh 
+    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    && mkdir /root/.conda \
+    && bash Miniconda3-latest-Linux-x86_64.sh -b \
+    && rm -f Miniconda3-latest-Linux-x86_64.sh 
 RUN conda --version
 
 # downgrade python
@@ -79,22 +79,20 @@ RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.6.tar.gz -
 RUN tar xvzf /tmp/trim_galore.tar.gz --directory=/root
 ENV PATH="/root/TrimGalore-0.6.6/:${PATH}"
 ARG PATH="/root/TrimGalore-0.6.6/:${PATH}"
-
-#RUN wget -O /tmp/hisat2-2.2.1-Linux_x86_64.zip https://cloud.biohpc.swmed.edu/index.php/s/oTtGWbWjaxsQ2Ho/download
 #RUN unzip /tmp/hisat2-2.2.1-Linux_x86_64.zip -d /root
 #ENV PATH="/root/hisat2-2.2.1/:${PATH}"
 #ARG PATH="/root/hisat2-2.2.1/:${PATH}"
 
-#RUN wget -O /tmp/salmon-1.4.0_linux_x86_64.tar.gz https://github.com/COMBINE-lab/salmon/releases/download/v1.4.0/salmon-1.4.0_linux_x86_64.tar.gz
-RUN wget -O /tmp/v1.4.0.tar.gz https://github.com/COMBINE-lab/salmon/archive/refs/tags/v1.4.0.tar.gz
+#RUN wget -O /tmp/v1.4.0.tar.gz https://github.com/COMBINE-lab/salmon/archive/refs/tags/v1.4.0.tar.gz
 #RUN cd /tmp && tar xvf v1.4.0.tar.gz && cd salmon-1.4.0 && mkdir build && cd build && cmake .. && make
-#ENV PATH="/root/salmon-latest_linux_x86_64/bin/:${PATH}"
-#ARG PATH="/root/salmon-latest_linux_x86_64/bin/:${PATH}"
+RUN wget -O /tmp/salmon-1.4.0_linux_x86_64.tar.gz https://github.com/COMBINE-lab/salmon/releases/download/v1.4.0/salmon-1.4.0_linux_x86_64.tar.gz
+ENV PATH="/root/salmon-latest_linux_x86_64/bin/:${PATH}"
+ARG PATH="/root/salmon-latest_linux_x86_64/bin/:${PATH}"
 
 #RUN conda install bioconda::ucsc-bedgraphtobigwig
-#RUN curl http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig > /usr/bin/bedGraphToBigWig && chmod +x /usr/bin/bedGraphToBigWig
+RUN curl http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig > /usr/bin/bedGraphToBigWig && chmod +x /usr/bin/bedGraphToBigWig
 
-#RUN echo 'pth <- Sys.getenv("PATH"); Sys.setenv(PATH = paste(pth, "/root/miniconda3/bin", sep = ":"))' >> /usr/local/lib/R/etc/Rprofile.site
+RUN echo 'pth <- Sys.getenv("PATH"); Sys.setenv(PATH = paste(pth, "/root/miniconda3/bin", sep = ":"))' >> /usr/local/lib/R/etc/Rprofile.site
 
 # install the R dependencies
 #COPY install.R /tmp/
